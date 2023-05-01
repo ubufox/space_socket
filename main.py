@@ -45,9 +45,12 @@ if __name__ == "__main__":
     print("Running Depth Sensing system")
     print("Initializing ZED sensor...")
     init = sl.InitParameters(
-        depth_mode=sl.DEPTH_MODE.PERFORMANCE,
-        coordinate_units=sl.UNIT.METER,
-        coordinate_system=sl.COORDINATE_SYSTEM.RIGHT_HANDED_Y_UP)
+        depth_mode=sl.DEPTH_MODE.ULTRA,
+        depth_maximum_distance=3.0,
+        depth_minimum_distance=0.5,
+        depth_stabilization=True,
+        coordinate_units=sl.UNIT.METER)
+        # coordinate_system=sl.COORDINATE_SYSTEM.RIGHT_HANDED_Y_UP)
 
     if len(sys.argv) > 1:
         parseArg(len(sys.argv), sys.argv[1], init)
