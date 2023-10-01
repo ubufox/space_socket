@@ -63,8 +63,8 @@ if __name__ == "__main__":
         exit()
 
     res = sl.Resolution()
-    res.width = 720
-    res.height = 404
+    res.width = 180
+    res.height = 101
 
     # The Data structure appears to be a 2D array where each array is an array of depth
     # where the index is the x value and y value is the first arrays value
@@ -85,17 +85,17 @@ if __name__ == "__main__":
             message = s.recv()
             print("Received request: ", message)
 
-            print("Getting ZED point cloud")
+            # print("Getting ZED point cloud")
             if zed.grab() == sl.ERROR_CODE.SUCCESS:
-                print("ZED grab success") 
+                # print("ZED grab success") 
                 try:
                     zed.retrieve_measure(point_cloud, sl.MEASURE.DEPTH, sl.MEM.CPU, res)
-                    print("Measure success")
+                    # print("Measure success")
                 except Exception as e:
                     print("Failed on retrieve measure")
                     print(e)
 
-                print("Point cloud retrieved!")
+                # print("Point cloud retrieved!")
                 n_data = point_cloud.get_data()
                 
                 l = list(map(str, n_data.flatten()))
@@ -104,9 +104,9 @@ if __name__ == "__main__":
                     "data": l,
                 } 
 
-                print("Sending point cloud... %.4f" % time.perf_counter()) 
+                # print("Sending point cloud... %.4f" % time.perf_counter()) 
                 s.send(json.dumps(d).encode("utf-8"))
-                print("Point cloud sent! %.4f" % time.perf_counter())
+                # print("Point cloud sent! %.4f" % time.perf_counter())
             else:
                 print("Failed to grab ZED point cloud")
 
